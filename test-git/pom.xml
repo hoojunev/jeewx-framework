@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>gov.test</groupId>
+	<artifactId>test-git</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>archetype.web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyyMMdd_HHmmss</maven.build.timestamp.format>
+		<platform.version>1.0.0-SNAPSHOT</platform.version>
+	</properties>
+
+	<dependencies>
+		
+
+		<dependency>
+			<groupId>gov.platform</groupId>
+			<artifactId>platform-tags</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
+
+		<!-- apache tiles -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-extras</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+
+		<!-- J2EE -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- eliminate unit test error -->
+		<dependency>
+		  <groupId>javax.servlet</groupId>
+		  <artifactId>servlet-api</artifactId>
+		  <version>2.5</version>
+		  <scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+	
+	<!-- Begin Environment Settings -->
+	<profiles>
+		<profile>
+			<id>release</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>snapshot</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+	</profiles>
+
+	<repositories>
+		<repository>
+			<id>gleam-repo</id>
+			<name>gleam-repo</name>
+			<url>http://192.168.0.240:9081/nexus/content/groups/public</url>
+		</repository>
+
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>gleam-repo</id>
+			<name>gleam-repo</name>
+			<url>http://192.168.0.240:9081/nexus/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<distributionManagement>
+		<repository>
+			<id>gleam-repo</id>
+			<name>Releases</name>
+			<url>http://192.168.0.240:9081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>gleam-repo</id>
+			<name>Snapshots</name>
+			<url>http://192.168.0.240:9081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<!-- End Environment Settings -->
+
+</project>

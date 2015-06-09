@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<import resource="classpath*:/META-INF/platform-*-mvc.xml" />
+	
+	
+	<!-- Tiles configuration -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/tiles-definitions.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 自动扫描且只扫描@Controller -->
+	<context:component-scan base-package="gov.**.web" use-default-filters="false"> 
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> <context:include-filter 
+		type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" /> </context:component-scan> 
+
+	<!-- 临时映射 -->
+	<mvc:view-controller path="/hello" view-name="/hello" />
+	<mvc:view-controller path="/hello2" view-name="/hello2" />
+	<mvc:view-controller path="/config/code/demo" view-name="/config/code/demo" />
+	<mvc:view-controller path="/home" view-name="/index" />
+	<mvc:view-controller path="/home/details" view-name="/index" />
+	<mvc:view-controller path="/security" view-name="/security/index" />
+	<mvc:view-controller path="/business" view-name="/business/index" />
+	<mvc:view-controller path="/business/fwlb" view-name="/business/index" />
+	<mvc:view-controller path="/business/sjsl" view-name="/business/index" />
+	<mvc:view-controller path="/business/dbwj" view-name="/business/index" />
+
+	<!-- Configures Handler Interceptors -->
+	<mvc:interceptors>
+
+		<mvc:interceptor>
+
+			<mvc:mapping path="/**" />
+			<bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor">
+				<property name="entityManagerFactory" ref="entityManagerFactory" />
+			</bean>
+		</mvc:interceptor>
+
+		<!-- Changes the locale when a 'locale' request parameter is sent; e.g. /?locale=de -->
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+
+		<!-- Changes the theme whne a 'theme' request parameter is sent; e.g. /?theme=gray -->
+		<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
+
+	</mvc:interceptors>
+
+
+
+</beans>
